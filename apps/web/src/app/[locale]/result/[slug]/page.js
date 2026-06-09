@@ -1,0 +1,206 @@
+import {notFound} from 'next/navigation'
+import {sanityFetch} from '@/sanity/lib/fetch'
+import {GENERATED_RESULT_BY_SLUG_QUERY, SITE_SETTINGS_QUERY} from '@/sanity/queries'
+import {buildMetadata} from '@/seo'
+import Container from '@/components/ui/Container'
+import ResultActions from '@/components/checklist/ResultActions'
+import FlyingPlanes from '@/components/checklist/FlyingPlanes'
+import LocalDate from '@/components/checklist/LocalDate'
+import {needsShortStaySchengenVisa} from '@/constants/visa-policy'
+import {getMessages, t} from '@/messages'
+
+function parseResult(record) {
+  if (!record?.generatedJson) return null
+  try {
+    return JSON.parse(record.generatedJson)
+  } catch {
+    return null
+  }
+}
+
+async function loadResult(slug) {
+  return sanityFetch({
+    query: GENERATED_RESULT_BY_SLUG_QUERY,
+    params: {slug},
+    tags: ['generatedResult', `generatedResult:${slug}`],
+    revalidate: 30,
+  })
+}
+
+export async function generateMetadata({params}) {
+  const {locale, slug} = await params
+  const [settings, record] = await Promise.all([
+    sanityFetch({query: SITE_SETTINGS_QUERY, tags: ['siteSettings']}),
+    loadResult(slug),
+  ])
+  const result = parseResult(record)
+  const metadata = buildMetadata({
+    settings: settings || {},
+    doc: {
+      title: result?.summary?.title || 'Generated Schengen checklist',
+      seo: {metaDescription: result?.summary?.applicantProfile || ''},
+    },
+    path: `/result/${slug}`,
+    locale,
+  })
+  if (!record?.indexable) metadata.robots = {index: false, follow: false}
+  return metadata
+}
+
+function documentsByStatus(documents, status) {
+  return (documents || []).filter((document) => document.status === status)
+}
+
+function DocumentGroup({title, items}) {
+  if (!items.length) return null
+  return (
+    <section className="rounded-lg border border-slate-200 bg-white p-5">
+      <h2 className="text-lg font-semibold text-slate-950">{title}</h2>
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        {items.map((document) => (
+          <article key={`${document.status}-${document.name}`} className="rounded-md border border-slate-100 bg-slate-50 p-4">
+            <h3 className="font-medium text-slate-900">{document.name}</h3>
+            <p className="mt-1 text-sm text-slate-600">{document.explanation}</p>
+            {document.appliesWhen ? <p className="mt-2 text-xs font-medium uppercase tracking-wide text-slate-500">{document.appliesWhen}</p> : null}
+            {document.commonMistakes?.length ? (
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-600">
+                {document.commonMistakes.map((mistake) => <li key={mistake}>{mistake}</li>)}
+              </ul>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default async function ResultPage({params}) {
+  const {locale, slug} = await params
+  const messages = getMessages(locale)
+  const record = await loadResult(slug)
+  const result = parseResult(record)
+
+  if (!record || !result) notFound()
+
+  const visaRequired = needsShortStaySchengenVisa(record.userInputs?.nationality)
+
+  return (
+    <main className="min-h-screen bg-slate-50">
+      <Container className="py-6 sm:py-8">
+        <div className="relative mb-5 overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <FlyingPlanes />
+          <div className="relative">
+          <div>
+            {!record.indexable ? (
+              <p className="mb-2 inline-flex rounded-md bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-900">
+                {t(messages, 'result.noindex')}
+              </p>
+            ) : null}
+            <h1 className="text-3xl font-bold text-slate-950">{result.summary.title}</h1>
+            <p className="mt-2 text-slate-600">{result.summary.applicantProfile}</p>
+          </div>
+          <div className="mt-5">
+            <ResultActions locale={locale} slug={slug} />
+          </div>
+          </div>
+        </div>
+
+        <div className="space-y-5">
+          <section className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-lg border border-slate-200 bg-white p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">{t(messages, 'result.lastChecked')}</h2>
+              <p className="mt-2 text-2xl font-bold text-slate-950"><LocalDate value={result.summary.lastCheckedDate} /></p>
+            </div>
+            <div className="rounded-lg border border-slate-200 bg-white p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">{t(messages, 'result.visaRequired')}</h2>
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {visaRequired ? t(messages, 'result.visaRequiredYes') : t(messages, 'result.visaRequiredNo')}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{t(messages, 'result.visaRequiredNote')}</p>
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-slate-200 bg-white p-5">
+            <h2 className="text-lg font-semibold text-slate-950">
+              {visaRequired ? t(messages, 'result.whereToApply') : t(messages, 'result.entryGuidance')}
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600">{result.applicationRoute.whereToApply}</p>
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+              <div className="rounded-md bg-slate-50 p-4">
+                <h3 className="text-sm font-semibold text-slate-900">Official portal</h3>
+                <a href={result.applicationRoute.officialPortal} target="_blank" rel="noopener noreferrer" className="mt-1 block break-words text-sm text-primary hover:underline">
+                  {result.applicationRoute.officialPortal}
+                </a>
+              </div>
+              <div className="rounded-md bg-slate-50 p-4">
+                <h3 className="text-sm font-semibold text-slate-900">Appointment provider</h3>
+                <p className="mt-1 text-sm leading-6 text-slate-600">{result.applicationRoute.appointmentProvider}</p>
+              </div>
+            </div>
+            {result.applicationRoute.applicationCenters?.length ? (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {result.applicationRoute.applicationCenters.map((center) => (
+                  <span key={center} className="rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-800">
+                    {center}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </section>
+
+          <section className="rounded-lg border border-slate-200 bg-white p-5">
+            <h2 className="text-lg font-semibold text-slate-950">{t(messages, 'result.steps')}</h2>
+            <ol className="mt-4 grid gap-3 md:grid-cols-2">
+              {result.steps.map((step) => (
+                <li key={step.stepNumber} className="flex gap-3 rounded-md border border-slate-100 bg-slate-50 p-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-sm font-bold text-white">{step.stepNumber}</span>
+                  <span>
+                    <strong className="block text-slate-900">{step.title}</strong>
+                    <span className="text-sm leading-6 text-slate-600">{step.description}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <DocumentGroup title={t(messages, 'result.required')} items={documentsByStatus(result.documents, 'required')} />
+          <DocumentGroup title={t(messages, 'result.conditional')} items={documentsByStatus(result.documents, 'conditional')} />
+          <DocumentGroup title={t(messages, 'result.optional')} items={documentsByStatus(result.documents, 'optional')} />
+
+          <section className="rounded-lg border border-slate-200 bg-white p-5">
+            <h2 className="text-lg font-semibold text-slate-950">{t(messages, 'result.feesAndTiming')}</h2>
+            <div className="mt-4 grid gap-4 lg:grid-cols-3">
+              <div className="rounded-md bg-slate-50 p-4 text-sm leading-6 text-slate-600">{result.feesAndTiming.visaFeeNotes}</div>
+              <div className="rounded-md bg-slate-50 p-4 text-sm leading-6 text-slate-600">{result.feesAndTiming.serviceFeeNotes}</div>
+              <div className="rounded-md bg-slate-50 p-4 text-sm leading-6 text-slate-600">{result.feesAndTiming.processingTimeNotes}</div>
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-slate-200 bg-white p-5">
+            <h2 className="text-lg font-semibold text-slate-950">{t(messages, 'result.officialSources')}</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {result.officialSources.map((source) => (
+                <a
+                  key={source.url}
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md border border-slate-200 bg-slate-50 p-4 transition hover:border-primary/40 hover:bg-white"
+                >
+                  <span className="block text-sm font-semibold leading-5 text-slate-900">{source.title}</span>
+                  <span className="mt-2 inline-flex rounded bg-white px-2 py-0.5 text-xs font-semibold uppercase text-slate-500">
+                    {source.sourceType}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <p className="rounded-lg border border-slate-200 bg-white p-5 text-sm leading-6 text-slate-600">
+            {result.disclaimer}
+          </p>
+        </div>
+      </Container>
+    </main>
+  )
+}

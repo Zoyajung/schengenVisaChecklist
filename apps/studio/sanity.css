@@ -1,0 +1,350 @@
+/* ============================================================================
+ * Studio styling — loaded via StudioLayout. All custom-component styling lives
+ * here (no inline styles). Scoped to .ds-* classes plus a few light Studio
+ * affordances.
+ * ========================================================================== */
+
+:root {
+  --ds-brand: #10b981;
+  --ds-brand-weak: rgba(16, 185, 129, 0.12);
+  --ds-ok: #16a34a;
+  --ds-warn: #d97706;
+  --ds-error: #dc2626;
+  --ds-ink: #0f172a;
+  --ds-muted: #64748b;
+  --ds-line: #e2e8f0;
+  --ds-surface: #f8fafc;
+  --ds-radius: 8px;
+}
+
+/* ---- Character counter ---------------------------------------------------- */
+.ds-charcount {
+  position: relative;
+}
+.ds-counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.ds-counter__num {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--ds-surface);
+  color: var(--ds-muted);
+  border: 1px solid var(--ds-line);
+}
+.ds-counter__hint {
+  color: var(--ds-muted);
+  font-weight: 500;
+}
+.ds-counter[data-state='warn'] .ds-counter__num {
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--ds-warn);
+  border-color: rgba(217, 119, 6, 0.3);
+}
+.ds-counter[data-state='error'] .ds-counter__num {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--ds-error);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* ---- Generic panel ------------------------------------------------------- */
+.ds-panel {
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius);
+  background: #fff;
+  overflow: hidden;
+}
+.ds-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--ds-surface);
+  border-bottom: 1px solid var(--ds-line);
+}
+.ds-panel__title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ds-ink);
+}
+
+/* ---- Badges / score ------------------------------------------------------ */
+.ds-badge,
+.ds-score {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ds-surface);
+  color: var(--ds-muted);
+  border: 1px solid var(--ds-line);
+}
+.ds-badge[data-state='ok'],
+.ds-score[data-state='ok'] {
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--ds-ok);
+  border-color: rgba(22, 163, 74, 0.3);
+}
+.ds-score[data-state='warn'] {
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--ds-warn);
+  border-color: rgba(217, 119, 6, 0.3);
+}
+.ds-score[data-state='error'] {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--ds-error);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+.ds-badge[data-state='off'] {
+  opacity: 0.6;
+}
+
+/* ---- SEO checklist ------------------------------------------------------- */
+.ds-checklist__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 12px 12px;
+}
+.ds-checklist__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+  color: var(--ds-ink);
+  border-bottom: 1px solid var(--ds-surface);
+}
+.ds-checklist__mark {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--ds-error);
+}
+.ds-checklist__item[data-ok='true'] .ds-checklist__mark {
+  background: var(--ds-ok);
+}
+.ds-checklist__hint {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--ds-muted);
+}
+
+/* ---- SEO preview --------------------------------------------------------- */
+.ds-seopreview__group {
+  padding: 12px;
+  border-bottom: 1px solid var(--ds-surface);
+}
+.ds-seopreview__caption {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ds-muted);
+  margin-bottom: 8px;
+}
+.ds-google__url {
+  font-size: 12px;
+  color: #202124;
+}
+.ds-google__title {
+  font-size: 18px;
+  color: #1a0dab;
+  line-height: 1.3;
+  margin: 2px 0;
+}
+.ds-google__desc {
+  font-size: 13px;
+  color: #4d5156;
+  line-height: 1.4;
+}
+.ds-social {
+  display: flex;
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius);
+  overflow: hidden;
+}
+.ds-social__img {
+  width: 120px;
+  min-height: 84px;
+  flex: none;
+  background: linear-gradient(135deg, var(--ds-brand-weak), var(--ds-surface));
+  border-right: 1px solid var(--ds-line);
+  overflow: hidden;
+  position: relative;
+}
+.ds-social__img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ds-social__body {
+  padding: 10px 12px;
+}
+.ds-social__domain {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--ds-muted);
+}
+.ds-social__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ds-ink);
+  margin: 2px 0;
+}
+.ds-social__desc {
+  font-size: 12px;
+  color: var(--ds-muted);
+}
+.ds-social--twitter {
+  border-radius: 16px;
+}
+
+/* ---- Schema preview ------------------------------------------------------ */
+.ds-schemapreview__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 12px 12px;
+}
+.ds-schemapreview__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+}
+.ds-schemapreview__item[data-on='false'] {
+  opacity: 0.5;
+}
+.ds-schemapreview__name {
+  font-weight: 600;
+  color: var(--ds-ink);
+}
+.ds-schemapreview__note {
+  font-size: 11px;
+  color: var(--ds-muted);
+}
+
+/* ---- Preview pane -------------------------------------------------------- */
+.ds-previewpane__grid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 12px;
+  font-size: 13px;
+}
+.ds-previewpane__grid dt {
+  color: var(--ds-muted);
+  font-weight: 600;
+}
+.ds-previewpane__grid dd {
+  margin: 0;
+  word-break: break-all;
+}
+.ds-previewpane__grid a {
+  color: var(--ds-brand);
+}
+
+/* ---- Translation panel --------------------------------------------------- */
+.ds-translation__body {
+  padding: 12px;
+}
+.ds-translation__help {
+  margin: 0 0 12px;
+  color: var(--ds-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ds-translation__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border: 1px solid var(--ds-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ds-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.ds-button:hover {
+  border-color: var(--ds-brand);
+}
+.ds-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.ds-button--primary {
+  margin-top: 10px;
+  background: var(--ds-brand);
+  border-color: var(--ds-brand);
+  color: #fff;
+}
+.ds-translation__select {
+  display: grid;
+  gap: 4px;
+  min-width: 180px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ds-muted);
+}
+.ds-translation__select select {
+  min-height: 32px;
+  border: 1px solid var(--ds-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ds-ink);
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 8px;
+}
+.ds-translation__textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 260px;
+  resize: vertical;
+  border: 1px solid var(--ds-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ds-ink);
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  padding: 10px;
+}
+.ds-translation__textarea:focus,
+.ds-translation__select select:focus {
+  border-color: var(--ds-brand);
+  outline: 2px solid var(--ds-brand-weak);
+}
+
+/* ---- Light Studio affordances ------------------------------------------- */
+[data-ui='TabList'] {
+  gap: 2px;
+}

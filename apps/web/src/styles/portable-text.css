@@ -1,0 +1,23 @@
+/* Shared styles for Sanity Portable Text and rich CMS content wrappers. */
+
+@layer components {
+  .ds-prose {
+    overflow-wrap: anywhere;
+  }
+
+  .ds-prose :where(h1, h2, h3, h4, h5, h6)[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  .ds-prose :where(figure, img, video, iframe, table, pre) {
+    max-width: 100%;
+  }
+
+  .ds-prose :where(table, pre) {
+    overflow-x: auto;
+  }
+
+  .ds-prose :where(a) {
+    text-decoration-thickness: 0.08em;
+  }
+}

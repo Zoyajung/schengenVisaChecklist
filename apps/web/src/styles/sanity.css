@@ -1,0 +1,21 @@
+/* Shared styles for Sanity-powered app integrations outside Portable Text. */
+
+@layer components {
+  .sanity-draft-banner {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: #f59e0b;
+    color: #451a03;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+
+  .sanity-draft-banner a {
+    font-weight: 600;
+    text-decoration-line: underline;
+  }
+}

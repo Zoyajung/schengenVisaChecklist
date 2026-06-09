@@ -1,0 +1,15 @@
+{
+  "blog": {
+    "title": "Blog",
+    "description": "Articles, guides, and deep-dives on modern web development and publishing.",
+    "readMore": "Read more",
+    "readPost": "Read {title}",
+    "allCategories": "All",
+    "postCountOne": "{count} post in {category}",
+    "postCountOther": "{count} posts in {category}",
+    "emptyTitle": "No posts yet",
+    "emptyDescription": "Check back soon - new posts are on the way.",
+    "relatedPosts": "Related posts",
+    "tocTitle": "On this page"
+  }
+}
