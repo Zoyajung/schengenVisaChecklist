@@ -1,15 +1,72 @@
 {
   "checklist": {
-    "heroEyebrow": "Schengen visa checklist generator",
+    "heroEyebrow": "Schengen checklist",
     "heroTitle": "Get a checklist for your Schengen visa route",
     "heroDescription": "Select your nationality, country of residence, destination, and visa type to get a clear Schengen document checklist for your trip.",
     "heroImageAlt": "Italian coastal village with colorful houses",
     "trustNote": "Independent informational guide. Always verify requirements with official sources before applying.",
+    "workspace": {
+      "kicker": "Schengen prep",
+      "title": "Schengen Visa",
+      "headline": "Schengen visa checklist",
+      "description": "Get a clear document checklist for your Schengen route, with travel, funds, insurance, and official-source reminders before you apply.",
+      "headerAction": "Start checklist",
+      "stats": {
+        "schengen": "27 states",
+        "rule": "90/180 travel rule",
+        "profile": "Source links"
+      },
+      "countryBoard": {
+        "kicker": "Popular Schengen destinations",
+        "title": "Popular Schengen routes",
+        "badge": "90/180 rule",
+        "action": "Start checklist",
+        "shortStay": "Short stay",
+        "verify": "Verify",
+        "items": {
+          "france": {
+            "name": "France",
+            "imageAlt": "Paris skyline and Eiffel Tower in France",
+            "validity": "90/180",
+            "documents": "Passport, photo, insurance, funds, itinerary"
+          },
+          "germany": {
+            "name": "Germany",
+            "imageAlt": "Historic Berlin architecture in Germany",
+            "validity": "90/180",
+            "documents": "Passport, proof of stay, employment, bank proof"
+          },
+          "italy": {
+            "name": "Italy",
+            "imageAlt": "Colorful coastal village in Italy",
+            "validity": "90/180",
+            "documents": "Passport, reservations, insurance, financial proof"
+          },
+          "spain": {
+            "name": "Spain",
+            "imageAlt": "Historic city street in Spain",
+            "validity": "90/180",
+            "documents": "Passport, invitation or hotel, funds, insurance"
+          }
+        }
+      }
+    },
     "loading": {
       "title": "Preparing your checklist",
       "description": "Checking the route, documents, and official source links."
     },
     "form": {
+      "panelKicker": "Schengen checklist",
+      "panelBadge": "Route details",
+      "title": "Search your Schengen route",
+      "visaSticker": "Schengen document checklist",
+      "shortStay": "Short stay",
+      "zone": "Destination",
+      "schengenArea": "Choose country",
+      "rule": "Stay rule",
+      "ruleValue": "90 in 180 days",
+      "pack": "Checklist",
+      "documents": "Docs + sources",
       "nationality": "Nationality",
       "selectNationality": "Select nationality",
       "searchNationality": "Search nationality, e.g. India",
@@ -28,7 +85,7 @@
       "submit": "Generate checklist",
       "generating": "Generating checklist",
       "error": "Could not generate the checklist. Check your setup and try again.",
-      "requiredStep": "Complete the required fields before continuing.",
+      "requiredStep": "Complete the required route fields before generating the checklist.",
       "notSelected": "Not selected",
       "clearCountry": "Clear selected country",
       "noCountries": "No countries found.",
@@ -53,11 +110,16 @@
       "stepCounter": "Step {current} of {total}",
       "progressLabel": "Checklist form progress",
       "travelerTitle": "Traveler",
+      "travelerShort": "Traveler",
       "travelerDescription": "Start with passport nationality and current residence.",
       "tripTitle": "Trip route",
+      "tripShort": "Route",
       "tripDescription": "Choose the Schengen destination and visa category.",
-      "profileTitle": "Profile",
+      "profileTitle": "Applicant profile",
+      "profileShort": "Profile",
       "profileDescription": "Add the details that can affect document preparation.",
+      "profileFormTitle": "Employment, family, and biometrics",
+      "profileFormDescription": "Fill these profile details before generating the Schengen checklist.",
       "nationalityHelp": "Use the passport nationality for the applicant.",
       "residenceHelp": "Use the country where the applicant legally lives.",
       "routeNote": "The checklist is tailored from your route and should be checked against official sources before submission.",
@@ -113,9 +175,15 @@
   },
   "about": {
     "eyebrow": "About",
-    "title": "About SchengenVisaChecklist.com",
-    "description": "SchengenVisaChecklist.com helps travellers prepare clearer visa document packs by turning route details into structured, source-aware checklists.",
-    "intro": "Visa requirements can feel scattered across embassy pages, appointment providers, PDFs, and local instructions. Our goal is to make preparation easier by organizing the most important steps, documents, timing notes, and official links in one readable place.",
+    "title": "About Schengen Visa",
+    "description": "We help travellers prepare clearer Schengen visa document packs with route-aware, source-aware checklists.",
+    "imageAlt": "Traveller reviewing documents beside a map",
+    "intro": "Visa requirements can feel scattered across embassy pages, appointment providers, PDFs, and local instructions. Our goal is to organize the important steps, documents, timing notes, and official links in one readable place.",
+    "visual": {
+      "documents": "Docs",
+      "sources": "Sources",
+      "route": "Route"
+    },
     "sections": [
       {
         "title": "What we do",

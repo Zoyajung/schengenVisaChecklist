@@ -75,6 +75,24 @@ html {
 
 body {
   background: #ffffff;
+  overflow-x: hidden;
+}
+
+.mobile-safe-width {
+  box-sizing: border-box;
+  width: calc(100vw - 4rem);
+  max-width: 100%;
+}
+
+.text-wrap-safe {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (min-width: 640px) {
+  .mobile-safe-width {
+    width: auto;
+  }
 }
 
 .premium-scrollbar {

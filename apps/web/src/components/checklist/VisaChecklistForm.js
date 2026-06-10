@@ -2,19 +2,15 @@
 
 import {useId, useMemo, useState} from 'react'
 import {useRouter} from 'next/navigation'
-import {AnimatePresence, motion, useReducedMotion} from 'framer-motion'
 import Flag from 'react-world-flags'
 import {
   ArrowLeft,
   ArrowRight,
-  Briefcase,
   CheckCircle2,
-  ClipboardCheck,
   Loader2,
   MapPin,
   Plane,
   Search,
-  ShieldCheck,
   UserRound,
   X,
 } from 'lucide-react'
@@ -44,49 +40,23 @@ const INITIAL_VALUES = {
   destinationCountry: '',
   visaType: '',
   purpose: 'Tourism',
-  employmentStatus: 'employed',
-  familyStatus: 'not-traveling-with-eu-family',
-  previousBiometrics: 'no',
 }
 
 const STEPS = [
   {
     titleKey: 'checklist.wizard.travelerTitle',
+    shortTitleKey: 'checklist.wizard.travelerShort',
     descriptionKey: 'checklist.wizard.travelerDescription',
     icon: UserRound,
     required: ['nationality', 'residenceCountry'],
   },
   {
     titleKey: 'checklist.wizard.tripTitle',
+    shortTitleKey: 'checklist.wizard.tripShort',
     descriptionKey: 'checklist.wizard.tripDescription',
     icon: MapPin,
     required: ['destinationCountry', 'visaType', 'purpose'],
   },
-  {
-    titleKey: 'checklist.wizard.profileTitle',
-    descriptionKey: 'checklist.wizard.profileDescription',
-    icon: ClipboardCheck,
-    required: [],
-  },
-]
-
-const EMPLOYMENT_OPTIONS = [
-  {value: 'employed', labelKey: 'checklist.form.employment.employed'},
-  {value: 'self-employed', labelKey: 'checklist.form.employment.selfEmployed'},
-  {value: 'student', labelKey: 'checklist.form.employment.student'},
-  {value: 'unemployed', labelKey: 'checklist.form.employment.unemployed'},
-  {value: 'retired', labelKey: 'checklist.form.employment.retired'},
-]
-
-const FAMILY_OPTIONS = [
-  {value: 'not-traveling-with-eu-family', labelKey: 'checklist.form.family.noEuRoute'},
-  {value: 'traveling-with-eu-family', labelKey: 'checklist.form.family.euFamily'},
-  {value: 'minor', labelKey: 'checklist.form.family.minor'},
-]
-
-const BIOMETRICS_OPTIONS = [
-  {value: 'no', labelKey: 'checklist.form.biometrics.no'},
-  {value: 'yes', labelKey: 'checklist.form.biometrics.yes'},
 ]
 
 function byType(countries, type) {
@@ -126,12 +96,6 @@ function schengenDestinations(countries) {
   ))
 }
 
-function findLabel(options, value, fallback) {
-  return options.find((option) => option.slug === value || option.value === value)?.name
-    || options.find((option) => option.value === value)?.label
-    || fallback
-}
-
 function findCountry(options, value) {
   return options.find((option) => option.slug === value)
 }
@@ -169,7 +133,7 @@ function CountryCombobox({
     <div className="grid gap-2">
       <span className="text-sm font-bold text-slate-800">{label}</span>
       <div className="relative">
-        <div className={`flex min-h-12 items-center gap-2 rounded-md border bg-white px-3.5 py-2 shadow-sm transition focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 ${invalid ? 'border-red-400 ring-4 ring-red-100' : 'border-slate-200'}`}>
+        <div className={`flex min-h-12 items-center gap-2 rounded-md border bg-[#f8fafc] px-3.5 py-2 transition focus-within:border-primary focus-within:bg-white focus-within:ring-4 focus-within:ring-primary/10 ${invalid ? 'border-red-400 ring-4 ring-red-100' : 'border-slate-200'}`}>
           {selected?.isoCode ? (
             <Flag code={selected.isoCode} className="h-5 w-7 shrink-0 rounded-sm object-cover shadow-sm" aria-hidden="true" />
           ) : (
@@ -240,7 +204,6 @@ function CountryCombobox({
 
 export default function VisaChecklistForm({locale = 'en', countries = [], visaTypes = []}) {
   const router = useRouter()
-  const prefersReducedMotion = useReducedMotion()
   const messages = getMessages(locale)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -257,20 +220,7 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
     destinations: schengenDestinations(allCountries),
   }), [allCountries])
 
-  const employmentOptions = EMPLOYMENT_OPTIONS.map((option) => ({
-    ...option,
-    label: t(messages, option.labelKey),
-  }))
-  const familyOptions = FAMILY_OPTIONS.map((option) => ({
-    ...option,
-    label: t(messages, option.labelKey),
-  }))
-  const biometricsOptions = BIOMETRICS_OPTIONS.map((option) => ({
-    ...option,
-    label: t(messages, option.labelKey),
-  }))
-
-  const inputClass = 'min-h-12 w-full rounded-md border border-slate-200 bg-white px-3.5 py-3 text-base text-slate-950 shadow-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10'
+  const inputClass = 'min-h-12 w-full rounded-md border border-slate-200 bg-[#f8fafc] px-3.5 py-3 text-base text-slate-950 outline-none transition focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10'
   const labelClass = 'text-sm font-bold text-slate-800'
 
   function updateValue(name, value) {
@@ -279,27 +229,8 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
     if (error) setError('')
   }
 
-  function markStepTouched(stepIndex) {
-    const required = STEPS[stepIndex].required
-    setTouched((current) => ({
-      ...current,
-      ...Object.fromEntries(required.map((field) => [field, true])),
-    }))
-  }
-
-  function validateStep(stepIndex) {
-    const missing = STEPS[stepIndex].required.filter((field) => !String(values[field] || '').trim())
-    if (missing.length) {
-      markStepTouched(stepIndex)
-      setError(t(messages, 'checklist.form.requiredStep'))
-      return false
-    }
-    setError('')
-    return true
-  }
-
   function goNext() {
-    if (!validateStep(step)) return
+    setError('')
     setStep((current) => Math.min(current + 1, STEPS.length - 1))
   }
 
@@ -334,9 +265,6 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
       destinationCountry: values.destinationCountry,
       visaType: values.visaType,
       purpose: values.purpose,
-      employmentStatus: values.employmentStatus,
-      familyStatus: values.familyStatus,
-      previousBiometrics: values.previousBiometrics === 'yes',
     }
 
     try {
@@ -362,10 +290,6 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
   const activeStep = STEPS[step]
   const ActiveIcon = activeStep.icon
   const progress = `${((step + 1) / STEPS.length) * 100}%`
-  const selectedNationality = findLabel(groups.nationalities, values.nationality, t(messages, 'checklist.form.notSelected'))
-  const selectedResidence = findLabel(groups.residences, values.residenceCountry, t(messages, 'checklist.form.notSelected'))
-  const selectedDestination = findLabel(groups.destinations, values.destinationCountry, t(messages, 'checklist.form.notSelected'))
-  const selectedVisaType = findLabel(allVisaTypes, values.visaType, t(messages, 'checklist.form.notSelected'))
 
   return (
     <>
@@ -384,14 +308,14 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
         </div>
       ) : null}
 
-      <form onSubmit={onSubmit} className="glass-panel overflow-hidden rounded-lg border border-white/80">
-        <div className="border-b border-slate-200/80 bg-white/90 p-4 sm:p-5">
+      <form onSubmit={onSubmit} className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-2xl shadow-black/20">
+        <div className="border-b border-slate-200 bg-white p-4 sm:p-5">
           <div className="flex items-start gap-3">
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-primary text-white">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-primary text-white shadow-sm">
               <ActiveIcon className="h-5 w-5" aria-hidden="true" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-bold text-tertiary">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-tertiary">
                 {t(messages, 'checklist.wizard.stepCounter', {current: step + 1, total: STEPS.length})}
               </p>
               <h2 className="mt-1 text-xl font-bold leading-7 text-slate-950">{t(messages, activeStep.titleKey)}</h2>
@@ -399,11 +323,34 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
             </div>
           </div>
 
+          <div className="mt-4 overflow-hidden rounded-lg border border-primary/15 bg-[#f7f9fc]">
+            <div className="flex items-center justify-between gap-3 border-b border-primary/10 bg-primary px-3 py-2 text-white">
+              <span className="text-[11px] font-black uppercase tracking-[0.2em]">{t(messages, 'checklist.form.visaSticker')}</span>
+              <span className="rounded-md bg-tertiary px-2 py-1 text-[10px] font-black uppercase text-secondary">
+                {t(messages, 'checklist.form.shortStay')}
+              </span>
+            </div>
+            <div className="grid grid-cols-3 divide-x divide-primary/10">
+              <div className="p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">{t(messages, 'checklist.form.zone')}</p>
+                <p className="mt-1 text-sm font-black text-primary">{t(messages, 'checklist.form.schengenArea')}</p>
+              </div>
+              <div className="p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">{t(messages, 'checklist.form.rule')}</p>
+                <p className="mt-1 text-sm font-black text-primary">{t(messages, 'checklist.form.ruleValue')}</p>
+              </div>
+              <div className="p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">{t(messages, 'checklist.form.pack')}</p>
+                <p className="mt-1 text-sm font-black text-primary">{t(messages, 'checklist.form.documents')}</p>
+              </div>
+            </div>
+          </div>
+
           <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100" aria-hidden="true">
             <div className="h-full rounded-full bg-primary transition-all duration-500" style={{width: progress}} />
           </div>
 
-          <ol className="mt-4 grid grid-cols-3 gap-2" aria-label={t(messages, 'checklist.wizard.progressLabel')}>
+          <ol className="mt-4 grid grid-cols-2 gap-2" aria-label={t(messages, 'checklist.wizard.progressLabel')}>
             {STEPS.map((item, index) => {
               const StepIcon = item.icon
               const isComplete = index < step
@@ -420,12 +367,12 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
                           : 'border-slate-200 bg-white text-slate-500'
                     }`}
                     onClick={() => {
-                      if (index <= step || validateStep(step)) setStep(index)
+                      setError('')
+                      setStep(index)
                     }}
                   >
                     {isComplete ? <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> : <StepIcon className="h-4 w-4" aria-hidden="true" />}
-                    <span className="hidden sm:inline">{t(messages, item.titleKey)}</span>
-                    <span className="sm:hidden">{index + 1}</span>
+                    <span>{t(messages, item.shortTitleKey)}</span>
                   </button>
                 </li>
               )
@@ -434,155 +381,73 @@ export default function VisaChecklistForm({locale = 'en', countries = [], visaTy
         </div>
 
         <div className="p-4 sm:p-5">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={step}
-              initial={prefersReducedMotion ? false : {opacity: 0, x: 18}}
-              animate={{opacity: 1, x: 0}}
-              exit={prefersReducedMotion ? undefined : {opacity: 0, x: -18}}
-              transition={{duration: 0.22, ease: 'easeOut'}}
-              className="grid gap-4"
-            >
-              {step === 0 ? (
-                <div className="grid gap-4">
-                  <CountryCombobox
-                    label={t(messages, 'checklist.form.nationality')}
-                    placeholder={t(messages, 'checklist.form.searchNationality')}
-                    options={groups.nationalities}
-                    value={values.nationality}
-                    invalid={fieldState('nationality')}
-                    help={t(messages, 'checklist.wizard.nationalityHelp')}
-                    messages={messages}
-                    onChange={(value) => updateValue('nationality', value)}
-                  />
+          <div className="grid gap-4">
+            {step === 0 ? (
+              <div className="grid gap-4">
+                <CountryCombobox
+                  label={t(messages, 'checklist.form.nationality')}
+                  placeholder={t(messages, 'checklist.form.searchNationality')}
+                  options={groups.nationalities}
+                  value={values.nationality}
+                  invalid={fieldState('nationality')}
+                  messages={messages}
+                  onChange={(value) => updateValue('nationality', value)}
+                />
 
-                  <CountryCombobox
-                    label={t(messages, 'checklist.form.residenceCountry')}
-                    placeholder={t(messages, 'checklist.form.searchResidenceCountry')}
-                    options={groups.residences}
-                    value={values.residenceCountry}
-                    invalid={fieldState('residenceCountry')}
-                    help={t(messages, 'checklist.wizard.residenceHelp')}
-                    messages={messages}
-                    onChange={(value) => updateValue('residenceCountry', value)}
-                  />
-                </div>
-              ) : null}
+                <CountryCombobox
+                  label={t(messages, 'checklist.form.residenceCountry')}
+                  placeholder={t(messages, 'checklist.form.searchResidenceCountry')}
+                  options={groups.residences}
+                  value={values.residenceCountry}
+                  invalid={fieldState('residenceCountry')}
+                  messages={messages}
+                  onChange={(value) => updateValue('residenceCountry', value)}
+                />
+              </div>
+            ) : null}
 
-              {step === 1 ? (
-                <div className="grid gap-4">
-                  <CountryCombobox
-                    label={t(messages, 'checklist.form.destinationCountry')}
-                    placeholder={t(messages, 'checklist.form.searchDestinationCountry')}
-                    options={groups.destinations}
-                    value={values.destinationCountry}
-                    invalid={fieldState('destinationCountry')}
-                    messages={messages}
-                    onChange={(value) => updateValue('destinationCountry', value)}
-                  />
+            {step === 1 ? (
+              <div className="grid gap-4">
+                <CountryCombobox
+                  label={t(messages, 'checklist.form.destinationCountry')}
+                  placeholder={t(messages, 'checklist.form.searchDestinationCountry')}
+                  options={groups.destinations}
+                  value={values.destinationCountry}
+                  invalid={fieldState('destinationCountry')}
+                  messages={messages}
+                  onChange={(value) => updateValue('destinationCountry', value)}
+                />
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="grid gap-2">
-                      <span className={labelClass}>{t(messages, 'checklist.form.visaType')}</span>
-                      <select
-                        name="visaType"
-                        value={values.visaType}
-                        aria-invalid={fieldState('visaType')}
-                        className={`${inputClass} ${fieldState('visaType') ? 'border-red-400 ring-4 ring-red-100' : ''}`}
-                        onChange={(event) => updateValue('visaType', event.target.value)}
-                      >
-                        <option value="" disabled>{t(messages, 'checklist.form.selectVisaType')}</option>
-                        {allVisaTypes.map((visaType) => <option key={visaType.slug} value={visaType.slug}>{visaType.name}</option>)}
-                      </select>
-                    </label>
-
-                    <label className="grid gap-2">
-                      <span className={labelClass}>{t(messages, 'checklist.form.purpose')}</span>
-                      <input
-                        name="purpose"
-                        value={values.purpose}
-                        aria-invalid={fieldState('purpose')}
-                        className={`${inputClass} ${fieldState('purpose') ? 'border-red-400 ring-4 ring-red-100' : ''}`}
-                        onChange={(event) => updateValue('purpose', event.target.value)}
-                      />
-                    </label>
-                  </div>
-
-                  <div className="rounded-md border border-tertiary/25 bg-tertiary/10 p-3 text-sm leading-6 text-slate-700">
-                    <ShieldCheck className="mr-2 inline h-4 w-4 text-primary" aria-hidden="true" />
-                    {t(messages, 'checklist.wizard.routeNote')}
-                  </div>
-                </div>
-              ) : null}
-
-              {step === 2 ? (
-                <div className="grid gap-4">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="grid gap-2">
-                      <span className={labelClass}>{t(messages, 'checklist.form.employmentStatus')}</span>
-                      <select
-                        name="employmentStatus"
-                        value={values.employmentStatus}
-                        className={inputClass}
-                        onChange={(event) => updateValue('employmentStatus', event.target.value)}
-                      >
-                        {employmentOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                      </select>
-                    </label>
-
-                    <label className="grid gap-2">
-                      <span className={labelClass}>{t(messages, 'checklist.form.previousBiometrics')}</span>
-                      <select
-                        name="previousBiometrics"
-                        value={values.previousBiometrics}
-                        className={inputClass}
-                        onChange={(event) => updateValue('previousBiometrics', event.target.value)}
-                      >
-                        {biometricsOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                      </select>
-                    </label>
-                  </div>
-
+                <div className="grid gap-4 sm:grid-cols-2">
                   <label className="grid gap-2">
-                    <span className={labelClass}>{t(messages, 'checklist.form.familyStatus')}</span>
+                    <span className={labelClass}>{t(messages, 'checklist.form.visaType')}</span>
                     <select
-                      name="familyStatus"
-                      value={values.familyStatus}
-                      className={inputClass}
-                      onChange={(event) => updateValue('familyStatus', event.target.value)}
+                      name="visaType"
+                      value={values.visaType}
+                      aria-invalid={fieldState('visaType')}
+                      className={`${inputClass} ${fieldState('visaType') ? 'border-red-400 ring-4 ring-red-100' : ''}`}
+                      onChange={(event) => updateValue('visaType', event.target.value)}
                     >
-                      {familyOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                      <option value="" disabled>{t(messages, 'checklist.form.selectVisaType')}</option>
+                      {allVisaTypes.map((visaType) => <option key={visaType.slug} value={visaType.slug}>{visaType.name}</option>)}
                     </select>
                   </label>
 
-                  <div className="rounded-md border border-slate-200 bg-white p-4">
-                    <div className="flex items-center gap-2 text-sm font-bold text-slate-950">
-                      <Briefcase className="h-4 w-4 text-tertiary" aria-hidden="true" />
-                      {t(messages, 'checklist.wizard.reviewTitle')}
-                    </div>
-                    <dl className="mt-3 grid gap-2 text-sm">
-                      <div className="flex justify-between gap-4">
-                        <dt className="text-slate-500">{t(messages, 'checklist.form.nationality')}</dt>
-                        <dd className="text-right font-semibold text-slate-900">{selectedNationality}</dd>
-                      </div>
-                      <div className="flex justify-between gap-4">
-                        <dt className="text-slate-500">{t(messages, 'checklist.form.residenceCountry')}</dt>
-                        <dd className="text-right font-semibold text-slate-900">{selectedResidence}</dd>
-                      </div>
-                      <div className="flex justify-between gap-4">
-                        <dt className="text-slate-500">{t(messages, 'checklist.form.destinationCountry')}</dt>
-                        <dd className="text-right font-semibold text-slate-900">{selectedDestination}</dd>
-                      </div>
-                      <div className="flex justify-between gap-4">
-                        <dt className="text-slate-500">{t(messages, 'checklist.form.visaType')}</dt>
-                        <dd className="text-right font-semibold text-slate-900">{selectedVisaType}</dd>
-                      </div>
-                    </dl>
-                  </div>
+                  <label className="grid gap-2">
+                    <span className={labelClass}>{t(messages, 'checklist.form.purpose')}</span>
+                    <input
+                      name="purpose"
+                      value={values.purpose}
+                      aria-invalid={fieldState('purpose')}
+                      className={`${inputClass} ${fieldState('purpose') ? 'border-red-400 ring-4 ring-red-100' : ''}`}
+                      onChange={(event) => updateValue('purpose', event.target.value)}
+                    />
+                  </label>
                 </div>
-              ) : null}
-            </motion.div>
-          </AnimatePresence>
+              </div>
+            ) : null}
+
+          </div>
 
           {error ? <p className="mt-4 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{error}</p> : null}
 

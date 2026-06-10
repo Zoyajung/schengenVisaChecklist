@@ -22,11 +22,12 @@ export default function Navbar({locale, brand}) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const messages = getMessages(locale)
   const displayBrand = brand || t(messages, 'site.fallbackBrand')
+  const mobileBrand = t(messages, 'site.shortBrand')
 
   return (
-    <nav aria-label={t(messages, 'nav.mainLabel')} className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
+    <nav aria-label={t(messages, 'nav.mainLabel')} className="sticky top-0 z-50 bg-[#f5f7fb]/95 py-2 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-16 items-center justify-between gap-3">
+        <div className="flex min-h-14 items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 shadow-sm">
           <Link
             href={localizedPath(locale, '/')}
             className="flex min-w-0 items-center gap-3 rounded-md py-2 text-primary transition hover:text-secondary"
@@ -36,7 +37,8 @@ export default function Navbar({locale, brand}) {
               <ShieldCheck className="h-5 w-5" aria-hidden="true" />
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-sm font-bold leading-5 text-slate-950 sm:text-base">{displayBrand}</span>
+              <span className="block truncate text-sm font-bold leading-5 text-slate-950 sm:hidden">{mobileBrand}</span>
+              <span className="hidden truncate text-base font-bold leading-5 text-slate-950 sm:block">{displayBrand}</span>
               <span className="hidden text-xs font-medium text-slate-500 sm:block">{t(messages, 'site.tagline')}</span>
             </span>
           </Link>
@@ -78,8 +80,8 @@ export default function Navbar({locale, brand}) {
       </div>
 
       {mobileOpen ? (
-        <div id="mobile-menu" className="border-t border-slate-200 bg-white shadow-2xl shadow-slate-900/10 lg:hidden">
-          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+        <div id="mobile-menu" className="mx-auto max-w-7xl px-4 pt-1 sm:px-6 lg:hidden">
+          <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-2xl shadow-slate-900/10">
             <ul className="grid gap-1" role="list">
               {NAV_LINKS.map(({href, labelKey}) => (
                 <li key={href}>

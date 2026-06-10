@@ -1,6 +1,7 @@
 {
   "site": {
     "fallbackBrand": "SchengenVisaChecklist.com",
+    "shortBrand": "Schengen Visa",
     "tagline": "Source-aware Schengen preparation",
     "skipToContent": "Skip to main content"
   },
@@ -17,7 +18,7 @@
   },
   "footer": {
     "navigate": "Navigate",
-    "description": "Plan your Schengen document pack with a clearer checklist, official-source reminders, and a mobile-first preparation flow.",
+    "description": "Plan your Schengen document pack with a clearer checklist, official-source reminders, and practical preparation guidance.",
     "coverage": "Popular Schengen destinations covered",
     "sourceAware": "Built around official-source verification",
     "support": "Preparation",
