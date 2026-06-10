@@ -1,0 +1,169 @@
+{
+  "home": {
+    "heroEyebrow": "Professional Schengen checklist preparation",
+    "heroTitle": "Your Complete Schengen Visa Checklist in Minutes",
+    "heroDescription": "Answer a few travel questions and receive a clear, route-aware checklist for your Schengen visa document pack, with official-source reminders before you apply.",
+    "heroImageAlt": "Paris skyline with the Eiffel Tower at sunset",
+    "primaryCta": "Generate Checklist",
+    "secondaryCta": "Learn More",
+    "heroTrust": {
+      "official": "Official-source reminders",
+      "mobile": "Fast guided form",
+      "private": "No approval guarantees"
+    },
+    "trust": {
+      "items": {
+        "countries": {
+          "value": "29",
+          "label": "Schengen countries"
+        },
+        "updated": {
+          "value": "Fresh",
+          "label": "Requirement checks"
+        },
+        "fast": {
+          "value": "Quick result",
+          "label": "Checklist generation"
+        },
+        "secure": {
+          "value": "Clear",
+          "label": "Source-aware guidance"
+        }
+      }
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "From travel route to document plan",
+      "description": "A streamlined preparation flow helps applicants understand what to gather before checking the final instructions with the relevant official source.",
+      "items": {
+        "details": {
+          "title": "Enter travel details",
+          "body": "Select nationality, residence country, destination, visa type, and applicant profile details."
+        },
+        "generate": {
+          "title": "Generate a personalized checklist",
+          "body": "The website combines stored visa rules, source links, and AI formatting to create a readable checklist draft."
+        },
+        "prepare": {
+          "title": "Prepare documents confidently",
+          "body": "Review required, conditional, and optional documents before confirming final rules with official sources."
+        }
+      }
+    },
+    "features": {
+      "eyebrow": "Premium preparation tools",
+      "title": "Built for modern Schengen applicants",
+      "description": "A clean travel-tech experience with fast completion, strong visual hierarchy, and practical checklist output.",
+      "cta": "Start Your Checklist",
+      "items": {
+        "personalized": {
+          "title": "Personalized checklist generation",
+          "body": "Checklist sections adapt to the route and applicant profile entered in the form."
+        },
+        "country": {
+          "title": "Country-specific requirements",
+          "body": "Destination and residence details help surface route-relevant preparation notes."
+        },
+        "visaType": {
+          "title": "Visa type customization",
+          "body": "Tourism, business, family visit, transit, medical, and short-stay study routes are supported."
+        },
+        "mobile": {
+          "title": "Fast guided experience",
+          "body": "A focused step-by-step flow helps you complete the checklist without confusion."
+        },
+        "updated": {
+          "title": "Source-aware preparation",
+          "body": "Official links and review reminders help you confirm final details before applying."
+        },
+        "reliable": {
+          "title": "Reliable review mindset",
+          "body": "The result reminds applicants to verify final requirements with official visa sources."
+        }
+      }
+    },
+    "destinations": {
+      "eyebrow": "Popular Schengen destinations",
+      "title": "Plan for the countries travelers request most",
+      "description": "Browse common destination routes and start a checklist tailored to your travel profile.",
+      "cta": "Generate for your destination",
+      "items": {
+        "germany": {
+          "name": "Germany",
+          "body": "Business trips, family visits, tourism, and transit routes with embassy and provider checks.",
+          "alt": "Berlin city architecture in Germany"
+        },
+        "france": {
+          "name": "France",
+          "body": "Tourism and visit preparation for one of Europe's most requested Schengen destinations.",
+          "alt": "Eiffel Tower and Paris skyline in France"
+        },
+        "italy": {
+          "name": "Italy",
+          "body": "Document pack guidance for short stays, tourism, and family travel routes.",
+          "alt": "Colorful coastal village in Italy"
+        },
+        "spain": {
+          "name": "Spain",
+          "body": "Route-aware preparation for Spanish tourism, transit, and visit applications.",
+          "alt": "Historic street scene in Spain"
+        },
+        "netherlands": {
+          "name": "Netherlands",
+          "body": "Checklist drafts for Dutch travel routes and appointment preparation.",
+          "alt": "Amsterdam canal houses in the Netherlands"
+        },
+        "switzerland": {
+          "name": "Switzerland",
+          "body": "Elegant preparation flow for Swiss short-stay trips and supporting documents.",
+          "alt": "Swiss lake and alpine scenery"
+        }
+      }
+    },
+    "testimonials": {
+      "eyebrow": "Trusted preparation experience",
+      "title": "Designed to reduce document confusion",
+      "description": "A premium interface helps travelers, families, and consultants move from scattered requirements to a clearer preparation path.",
+      "items": {
+        "consultant": {
+          "quote": "The structure makes it easier to explain document categories before applicants visit the official appointment provider.",
+          "name": "Visa preparation advisor",
+          "role": "Schengen document support"
+        },
+        "traveler": {
+          "quote": "The step-by-step flow helped me understand what information mattered before I started gathering papers.",
+          "name": "Frequent traveler",
+          "role": "Tourism applicant"
+        },
+        "family": {
+          "quote": "The checklist format was simple to review on mobile and share with family members preparing the same trip.",
+          "name": "Family applicant",
+          "role": "Short-stay visit"
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "Questions",
+      "title": "Before you generate a checklist",
+      "description": "The checklist is a preparation aid, not an official visa decision or guarantee.",
+      "items": {
+        "official": {
+          "question": "Is this an official embassy checklist?",
+          "answer": "No. It is an independent preparation guide. Always verify the final document list, fees, appointment flow, and submission rules with the relevant official embassy, consulate, government, VFS, TLS, or BLS source."
+        },
+        "openai": {
+          "question": "How is the checklist generated?",
+          "answer": "The website uses stored Sanity rules and sources, then OpenAI can format or research a structured checklist when configured."
+        },
+        "sources": {
+          "question": "Can requirements change?",
+          "answer": "Yes. Schengen rules and provider instructions can change, so the result includes reminders to check official sources before booking, paying, or submitting documents."
+        },
+        "free": {
+          "question": "Does the website guarantee visa approval?",
+          "answer": "No. A checklist can help preparation, but only the relevant authority can assess and decide a visa application."
+        }
+      }
+    }
+  }
+}

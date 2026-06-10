@@ -1,0 +1,38 @@
+{
+  "name": "web",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:lan": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "build:web": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "browserslist": [
+    "Chrome >= 111",
+    "Edge >= 111",
+    "Firefox >= 111",
+    "Safari >= 16.4"
+  ],
+  "dependencies": {
+    "framer-motion": "^12.40.0",
+    "lucide-react": "^1.17.0",
+    "next": "16.2.6",
+    "next-sanity": "^13.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-world-flags": "^1.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4"
+  },
+  "optionalDependencies": {
+    "@next/swc-linux-x64-gnu": "16.2.6",
+    "@tailwindcss/oxide-linux-x64-gnu": "4.3.0",
+    "lightningcss-linux-x64-gnu": "1.32.0"
+  }
+}

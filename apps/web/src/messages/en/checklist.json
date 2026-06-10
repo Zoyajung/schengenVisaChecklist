@@ -1,0 +1,154 @@
+{
+  "checklist": {
+    "heroEyebrow": "Schengen visa checklist generator",
+    "heroTitle": "Get a checklist for your Schengen visa route",
+    "heroDescription": "Select your nationality, country of residence, destination, and visa type to get a clear Schengen document checklist for your trip.",
+    "heroImageAlt": "Italian coastal village with colorful houses",
+    "trustNote": "Independent informational guide. Always verify requirements with official sources before applying.",
+    "loading": {
+      "title": "Preparing your checklist",
+      "description": "Checking the route, documents, and official source links."
+    },
+    "form": {
+      "nationality": "Nationality",
+      "selectNationality": "Select nationality",
+      "searchNationality": "Search nationality, e.g. India",
+      "residenceCountry": "Country of residence",
+      "selectResidenceCountry": "Select country of residence",
+      "searchResidenceCountry": "Search residence country",
+      "destinationCountry": "Destination Schengen country",
+      "selectDestinationCountry": "Select Schengen country",
+      "searchDestinationCountry": "Search Schengen destination",
+      "visaType": "Visa type",
+      "selectVisaType": "Select visa type",
+      "purpose": "Travel purpose",
+      "employmentStatus": "Employment status",
+      "familyStatus": "Family situation",
+      "previousBiometrics": "Previous Schengen biometrics",
+      "submit": "Generate checklist",
+      "generating": "Generating checklist",
+      "error": "Could not generate the checklist. Check your setup and try again.",
+      "requiredStep": "Complete the required fields before continuing.",
+      "notSelected": "Not selected",
+      "clearCountry": "Clear selected country",
+      "noCountries": "No countries found.",
+      "employment": {
+        "employed": "Employed",
+        "selfEmployed": "Self-employed",
+        "student": "Student",
+        "unemployed": "Unemployed",
+        "retired": "Retired"
+      },
+      "family": {
+        "noEuRoute": "No EU/EEA family route",
+        "euFamily": "Traveling with EU/EEA family",
+        "minor": "Minor applicant"
+      },
+      "biometrics": {
+        "no": "No or not sure",
+        "yes": "Yes, within the last 59 months"
+      }
+    },
+    "wizard": {
+      "stepCounter": "Step {current} of {total}",
+      "progressLabel": "Checklist form progress",
+      "travelerTitle": "Traveler",
+      "travelerDescription": "Start with passport nationality and current residence.",
+      "tripTitle": "Trip route",
+      "tripDescription": "Choose the Schengen destination and visa category.",
+      "profileTitle": "Profile",
+      "profileDescription": "Add the details that can affect document preparation.",
+      "nationalityHelp": "Use the passport nationality for the applicant.",
+      "residenceHelp": "Use the country where the applicant legally lives.",
+      "routeNote": "The checklist is tailored from your route and should be checked against official sources before submission.",
+      "reviewTitle": "Route summary",
+      "back": "Back",
+      "next": "Continue"
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "items": [
+        "Admin adds official sources and checklist rules in Sanity.",
+        "The generator formats only the provided source-backed context.",
+        "Review the official links before booking, paying, or submitting documents."
+      ]
+    }
+  },
+  "result": {
+    "notFound": "Checklist result not found.",
+    "noindex": "Generated checklist. Verify details with official sources before applying.",
+    "summary": "Applicant summary",
+    "confidence": "Confidence",
+    "whereToApply": "Where to apply",
+    "entryGuidance": "Entry guidance",
+    "officialPortal": "Official portal",
+    "appointmentProvider": "Appointment provider",
+    "steps": "How to apply",
+    "documents": "Documents",
+    "required": "Required",
+    "conditional": "Conditional",
+    "optional": "Optional",
+    "commonMistakes": "Common mistakes",
+    "feesAndTiming": "Fees and timing",
+    "warnings": "Warnings",
+    "officialSources": "Official sources",
+    "lastChecked": "Last checked",
+    "visaRequired": "Visa required",
+    "visaRequiredYes": "Yes",
+    "visaRequiredNo": "No",
+    "visaRequiredNote": "For ordinary short-stay travel. Check official sources for passport type, residence permit, and family-route exceptions.",
+    "actions": {
+      "copy": "Copy link",
+      "copied": "Link copied.",
+      "copyFailed": "Copy failed. Copy the browser URL manually.",
+      "pdf": "Download PDF",
+      "startOver": "Start over",
+      "report": "Report incorrect info"
+    }
+  },
+  "admin": {
+    "reviewTitle": "Generated Results Review",
+    "reviewDescription": "Review AI-generated checklist drafts, check sources, and decide which results can become SEO-ready later.",
+    "empty": "No generated results yet."
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "About SchengenVisaChecklist.com",
+    "description": "SchengenVisaChecklist.com helps travellers prepare clearer visa document packs by turning route details into structured, source-aware checklists.",
+    "intro": "Visa requirements can feel scattered across embassy pages, appointment providers, PDFs, and local instructions. Our goal is to make preparation easier by organizing the most important steps, documents, timing notes, and official links in one readable place.",
+    "sections": [
+      {
+        "title": "What we do",
+        "body": "We help applicants understand what they may need before a Schengen visa appointment: identity documents, residence evidence, travel plans, insurance, financial proof, employment or sponsor documents, biometrics notes, fees, timelines, and official source links."
+      },
+      {
+        "title": "How our checklists are created",
+        "body": "Each checklist starts with the route you select, such as nationality, country of residence, destination country, and visa type. The result is built from editor-managed rules, official sources, and clearly labelled guidance so the document pack is easier to review before submission."
+      },
+      {
+        "title": "Why official sources still matter",
+        "body": "Schengen requirements can change without much notice, and appointment providers may apply country-specific or location-specific instructions. Always check the linked embassy, consulate, government, VFS, TLS, or BLS page before booking, paying, or submitting documents."
+      },
+      {
+        "title": "What we are not",
+        "body": "We are not an embassy, consulate, VFS, TLS, BLS, visa application centre, immigration adviser, lawyer, or government website. We do not issue visas, book appointments, guarantee approval, or replace official instructions."
+      }
+    ],
+    "principlesTitle": "Our approach",
+    "principles": [
+      "Keep guidance practical and easy to scan.",
+      "Show official links wherever possible.",
+      "Separate required, conditional, and optional documents.",
+      "Encourage travellers to verify final details with official sources.",
+      "Avoid approval guarantees or misleading official language."
+    ],
+    "closing": "Use this site as a preparation aid, then verify the final requirements with the official source for your destination and appointment location."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Report incorrect information, suggest a source, or ask about the checklist review process.",
+    "emailLabel": "Email",
+    "resultReference": "Checklist result",
+    "reportInstructions": "Include this result ID when reporting a checklist issue."
+  }
+}

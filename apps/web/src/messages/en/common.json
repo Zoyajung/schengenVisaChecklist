@@ -1,0 +1,53 @@
+{
+  "site": {
+    "fallbackBrand": "SchengenVisaChecklist.com",
+    "tagline": "Source-aware Schengen preparation",
+    "skipToContent": "Skip to main content"
+  },
+  "nav": {
+    "mainLabel": "Main navigation",
+    "checklist": "Checklist",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "about": "About",
+    "contact": "Contact",
+    "generate": "Generate Checklist",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
+  },
+  "footer": {
+    "navigate": "Navigate",
+    "description": "Plan your Schengen document pack with a clearer checklist, official-source reminders, and a mobile-first preparation flow.",
+    "coverage": "Popular Schengen destinations covered",
+    "sourceAware": "Built around official-source verification",
+    "support": "Preparation",
+    "supportItemOne": "Personalized checklist drafts",
+    "supportItemTwo": "Visa type and route matching",
+    "supportItemThree": "Official links for final review",
+    "contact": "Contact",
+    "remoteEurope": "European travel support, online",
+    "disclaimer": "Independent informational guide. Always verify with official sources.",
+    "rights": "All rights reserved."
+  },
+  "breadcrumbs": {
+    "label": "Breadcrumb",
+    "home": "Home",
+    "checklist": "Checklist",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "aiSeo": {
+    "keyTakeaways": "Key Takeaways"
+  },
+  "draftMode": {
+    "banner": "Draft preview mode",
+    "exit": "exit preview"
+  },
+  "video": {
+    "play": "Play YouTube video",
+    "playWithTitle": "Play video: {title}",
+    "title": "YouTube video"
+  }
+}

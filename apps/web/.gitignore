@@ -1,0 +1,6 @@
+# Environment variables (local secrets — NEVER commit these)
+.env
+.env.local
+.env.*.local
+
+# .env.example IS intentionally NOT ignored — share it in git
